@@ -1,14 +1,15 @@
 " Markdown Helper - Fast insert markdown tags in Vim
 " Maintainer : Xu Xiaodong <xxdlhy@gmail.com>
-" Modified   : 2012 May 27
+" Modified   : 2012 May 28
 " License    : MIT
 
+" Load check
 if exists("g:loaded_markdownhelper")
   finish
 endif
-
 let g:loaded_markdownhelper = 1
 
+" Options configuration
 " Header style: setext or atx
 let g:markdownheader_style = "setext"
 " List style: *, +, and -
@@ -34,12 +35,17 @@ noremap <Leader>h3 <esc>:call MdHeader(3)<cr>
 noremap <Leader>h4 <esc>:call MdHeader(4)<cr>
 noremap <Leader>h5 <esc>:call MdHeader(5)<cr>
 noremap <Leader>h6 <esc>:call MdHeader(6)<cr>
+noremap <Leader>bq <esc>:call MdBlockquote()<cr>
+noremap <Leader>bl <esc>:call MdBulletedList()<cr>
+noremap <Leader>nl <esc>:call MdNumberedList()<cr>
+noremap <Leader>cb <esc>:call MdCodeblock()<cr>
+noremap <Leader>hr <esc>:call MdHorizontalrule()<cr>
 
 " Process markdown header
 function! MdHeader(level)
   let row    = line(".")
   let text   = getline(row)
-  let length = strlen(text)
+  let length = strchars(text)
 
   if a:level == 1
     if g:markdownheader_style == "setext"
